@@ -1,6 +1,6 @@
-# DaVinci Resolve Linux Media Importer & Transcoder
+# DaVinci Resolve Linux Media Importer, Exporter & Transcoder
 
-A lightweight, seamless Python automation script for **DaVinci Resolve (Free Version) on Linux** (tested on Fedora). It enables one-click transcoding and direct importing of common audio and video formats (H.264/MP4, MKV, MP3, AAC, WEBM, etc.) into your active DaVinci Resolve Media Pool using FFmpeg and native Zenity GTK dialogs.
+A lightweight Python automation toolkit for **DaVinci Resolve (Free Version) on Linux** (tested on Fedora). It provides one-click importing and transcoding of common media into your active Media Pool, plus timeline export to popular delivery formats using FFmpeg and native Zenity GTK dialogs.
 
 ---
 
@@ -14,6 +14,7 @@ This script solves the problem by:
    - **Video**: MJPEG (`-vcodec mjpeg -q:v 2`) + Uncompressed 16-bit Big-Endian PCM Audio (`-acodec pcm_s16be`) in a `.mov` container.
    - **Audio**: Uncompressed 16-bit Big-Endian PCM Audio (`-acodec pcm_s16be`) in a `.mov` container.
 3. Automatically injecting the transcoded clips straight into your open DaVinci Resolve project's Media Pool via DaVinci Resolve's Python Scripting API.
+4. Exporting your active timeline to H.264, H.265, AV1, VP9, MP3, or AAC using selectable presets.
 
 ## See It in Action
 
@@ -65,30 +66,35 @@ sudo dnf install -y ffmpeg zenity python3
 
 ---
 
-### Step 2: Install the Script into DaVinci Resolve
+### Step 2: Install the Scripts into DaVinci Resolve
 
 DaVinci Resolve loads user Utility scripts from the Fusion scripts directory.
 
-Copy your script (`Universal_Media_Importer.py`) into the **Utility** scripts directory:
+Copy both scripts into the **Utility** scripts directory from a local clone:
 
 ```bash
 # Create the Utility directory if it does not exist:
 mkdir -p "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility"
 
-# Copy the script:
+# Copy the importer and exporter:
 cp Universal_Media_Importer.py "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/"
+cp Universal_Media_Exporter.py "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/"
 
-# Make sure the script has execute permissions:
+# Make sure both scripts have execute permissions:
 chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Exporter.py"
 ```
 
-Or download the latest version directly from GitHub with `curl`:
+Or download both scripts directly from GitHub with `curl`:
 
 ```bash
 mkdir -p "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility"
 curl -fL "https://raw.githubusercontent.com/tl2a/Davinci-universal-media-importer/refs/heads/main/Universal_Media_Importer.py" \
    -o "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+curl -fL "https://raw.githubusercontent.com/tl2a/Davinci-universal-media-importer/refs/heads/main/Universal_Media_Exporter.py" \
+   -o "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Exporter.py"
 chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Exporter.py"
 ```
 
 Or with `wget`:
@@ -97,17 +103,23 @@ Or with `wget`:
 mkdir -p "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility"
 wget -O "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py" \
    "https://raw.githubusercontent.com/tl2a/Davinci-universal-media-importer/refs/heads/main/Universal_Media_Importer.py"
+wget -O "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Exporter.py" \
+   "https://raw.githubusercontent.com/tl2a/Davinci-universal-media-importer/refs/heads/main/Universal_Media_Exporter.py"
 chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Exporter.py"
 ```
 
 *Or system-wide for all users:*
 ```bash
 sudo cp Universal_Media_Importer.py /opt/resolve/Fusion/Scripts/Utility/
+sudo cp Universal_Media_Exporter.py /opt/resolve/Fusion/Scripts/Utility/
 ```
 
 ---
 
 ## How to Use
+
+### Import Media
 
 1. Launch **DaVinci Resolve** and open your project.
 2. In the top menu bar, navigate to:
@@ -135,6 +147,31 @@ sudo cp Universal_Media_Importer.py /opt/resolve/Fusion/Scripts/Utility/
    </tr>
 </table>
 
+### Export a Timeline
+
+1. Launch **DaVinci Resolve**, open your project, and make sure an active timeline is selected.
+2. In the top menu bar, navigate to:
+   ```
+   Workspace -> Scripts -> Universal_Media_Exporter
+   ```
+3. Select an export preset, such as H.264 MP4, H.265/HEVC, AV1, VP9/WebM, MP3, or AAC.
+4. Choose the destination and filename for the exported media.
+5. Resolve renders an intermediate master, then FFmpeg encodes it to the selected format.
+6. A confirmation dialog appears when the export is complete, and the finished file is saved to the chosen location.
+
+### Exporter Visual Walkthrough
+
+<table>
+   <tr>
+      <td><img src="screenshots/7.png" alt="DaVinci Resolve Workspace Scripts menu with Universal Media Exporter selected"><br><em>Launch the exporter from Workspace &gt; Scripts.</em></td>
+      <td><img src="screenshots/8.png" alt="DaVinci Resolve exporter format and codec selection dialog"><br><em>Choose the desired export format and codec preset.</em></td>
+   </tr>
+   <tr>
+      <td><img src="screenshots/9.png" alt="DaVinci Resolve exporter encoding a timeline with FFmpeg"><br><em>Track the Resolve render and FFmpeg encoding progress.</em></td>
+      <td><img src="screenshots/10.png" alt="Final exported media file shown in the file manager"><br><em>Find the completed export in the destination folder.</em></td>
+   </tr>
+</table>
+
 ---
 
 ## Output Format Details
@@ -144,6 +181,18 @@ sudo cp Universal_Media_Importer.py /opt/resolve/Fusion/Scripts/Utility/
 | **Video Files** (`.mp4`, `.mkv`, `.webm`, etc.) | QuickTime (`.mov`) | Motion JPEG (`mjpeg`, `-q:v 2`) | Uncompressed PCM (`pcm_s16be`) |
 | **Audio Files** (`.mp3`, `.m4a`, `.aac`, `.ogg`, etc.) | QuickTime (`.mov`) | *None* (`-vn`) | Uncompressed PCM (`pcm_s16be`) |
 
+### Export Presets
+
+| Preset | Output | Video Codec | Audio Codec |
+| :--- | :--- | :--- | :--- |
+| H.264 Standard / High Quality | `.mp4` | H.264 (`libx264`) | AAC 320 kbps |
+| H.264 Small File Size | `.mp4` | H.264 (`libx264`) | AAC 192 kbps |
+| H.265 / HEVC High Efficiency | `.mp4` | H.265 (`libx265`) | AAC 320 kbps |
+| AV1 Modern Open Codec | `.mkv` | AV1 (`libsvtav1`) | Opus 192 kbps |
+| VP9 / Opus Web Standard | `.webm` | VP9 (`libvpx-vp9`) | Opus 192 kbps |
+| Audio Only MP3 | `.mp3` | None | MP3 320 kbps CBR |
+| Audio Only AAC | `.m4a` | None | AAC 320 kbps |
+
 ---
 
 ## Troubleshooting
@@ -152,6 +201,7 @@ sudo cp Universal_Media_Importer.py /opt/resolve/Fusion/Scripts/Utility/
 - **Python Scripting not working inside Resolve**: In DaVinci Resolve, go to `Preferences -> General` and ensure external scripting is set to `Local` or `Network`. Ensure your system's Python 3 path is recognized by Resolve.
 - **Zenity window not appearing**: Verify `zenity` is installed by running `zenity --version` in your terminal.
 - **FFmpeg errors**: Verify `ffmpeg` is properly installed with support for common decoders by running `ffmpeg -version`.
+- **Exporter cannot render**: Ensure the project has an active timeline with video or audio tracks enabled, and that the selected Resolve Media Storage volume is writable.
 
 ---
 

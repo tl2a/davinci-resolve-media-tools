@@ -15,6 +15,19 @@ This script solves the problem by:
    - **Audio**: Uncompressed 16-bit Big-Endian PCM Audio (`-acodec pcm_s16be`) in a `.mov` container.
 3. Automatically injecting the transcoded clips straight into your open DaVinci Resolve project's Media Pool via DaVinci Resolve's Python Scripting API.
 
+## See It in Action
+
+<table>
+   <tr>
+      <td><img src="screenshots/1.png" alt="DaVinci Resolve Workspace Scripts menu"></td>
+      <td><img src="screenshots/5.png" alt="DaVinci Resolve importer success dialog showing completed import"></td>
+   </tr>
+   <tr>
+      <td align="center"><em>Launch the importer from Resolve's Workspace menu.</em></td>
+      <td align="center"><em>Imported media appears in the Media Pool after processing.</em></td>
+   </tr>
+</table>
+
 ---
 
 ## Prerequisites
@@ -86,6 +99,23 @@ sudo cp Universal_Media_Importer.py /opt/resolve/Fusion/Scripts/Utility/
 3. A GTK file picker will open. Select one or multiple media files (`.mp4`, `.mkv`, `.mp3`, `.mov`, `.webm`, `.flv`, `.m4a`, `.wav`, `.ogg`, `.aac`, `.flac`).
 4. A progress window will display the batch encoding status.
 5. Once completed, the transcoded files (`*_encoded.mov`) will be automatically imported into your active Media Pool bin ready for editing.
+
+### Visual Walkthrough
+
+<table>
+   <tr>
+      <td><img src="screenshots/1.png" alt="DaVinci Resolve Workspace Scripts menu"><br><em>Open the importer from Workspace &gt; Scripts.</em></td>
+      <td><img src="screenshots/2.png" alt="Media file picker with multiple files selected"><br><em>Select one or more media files.</em></td>
+   </tr>
+   <tr>
+      <td><img src="screenshots/3.png" alt="DaVinci Resolve importer processing the second file"><br><em>The importer processes the selected batch.</em></td>
+      <td><img src="screenshots/4.png" alt="DaVinci Resolve importer processing the third file"><br><em>Progress updates as each file is transcoded.</em></td>
+   </tr>
+   <tr>
+      <td><img src="screenshots/5.png" alt="DaVinci Resolve importer success dialog"><br><em>The imported media appears in the Media Pool as the confirmation modal appears.</em></td>
+      <td><img src="screenshots/6.png" alt="Generated MOV files in the file manager"><br><em>Converted `.mov` files are available alongside the source media.</em></td>
+   </tr>
+</table>
 
 ---
 

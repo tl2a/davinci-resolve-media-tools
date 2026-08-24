@@ -82,6 +82,24 @@ cp Universal_Media_Importer.py "$HOME/.local/share/DaVinciResolve/Fusion/Scripts
 chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
 ```
 
+Or download the latest version directly from GitHub with `curl`:
+
+```bash
+mkdir -p "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility"
+curl -fL "https://raw.githubusercontent.com/tl2a/Davinci-universal-media-importer/refs/heads/main/Universal_Media_Importer.py" \
+   -o "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+```
+
+Or with `wget`:
+
+```bash
+mkdir -p "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility"
+wget -O "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py" \
+   "https://raw.githubusercontent.com/tl2a/Davinci-universal-media-importer/refs/heads/main/Universal_Media_Importer.py"
+chmod +x "$HOME/.local/share/DaVinciResolve/Fusion/Scripts/Utility/Universal_Media_Importer.py"
+```
+
 *Or system-wide for all users:*
 ```bash
 sudo cp Universal_Media_Importer.py /opt/resolve/Fusion/Scripts/Utility/

@@ -149,15 +149,22 @@ sudo cp Universal_Media_Exporter.py /opt/resolve/Fusion/Scripts/Utility/
 
 ### Export a Timeline
 
-1. Launch **DaVinci Resolve**, open your project, and make sure an active timeline is selected.
-2. In the top menu bar, navigate to:
+Before exporting, add the temporary or working folder to Resolve's Media Storage list to avoid media storage errors:
+
+1. Open **DaVinci Resolve**.
+2. Go to **Preferences (`Ctrl + ,`) -> System -> Media Storage**.
+3. Click **Add** and select `/tmp` or your home directory (for example, `/home/user/Videos`).
+4. Click **Save** and restart Resolve.
+
+5. Open your project and make sure an active timeline is selected.
+6. In the top menu bar, navigate to:
    ```
    Workspace -> Scripts -> Universal_Media_Exporter
    ```
-3. Select an export preset, such as H.264 MP4, H.265/HEVC, AV1, VP9/WebM, MP3, or AAC.
-4. Choose the destination and filename for the exported media.
-5. Resolve renders an intermediate master, then FFmpeg encodes it to the selected format.
-6. A confirmation dialog appears when the export is complete, and the finished file is saved to the chosen location.
+7. Select an export preset, such as H.264 MP4, H.265/HEVC, AV1, VP9/WebM, MP3, or AAC.
+8. Choose the destination and filename for the exported media.
+9. Resolve renders an intermediate master, then FFmpeg encodes it to the selected format.
+10. A confirmation dialog appears when the export is complete, and the finished file is saved to the chosen location.
 
 ### Exporter Visual Walkthrough
 

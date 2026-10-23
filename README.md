@@ -1,5 +1,8 @@
 # DaVinci Resolve Linux Media Importer, Exporter & Transcoder
 
+> [!WARNING]
+> **Last supported release: DaVinci Resolve 21.0.4.** This toolkit does not work with Resolve 21.1.0 or later (Free edition). The scripts depend on Resolve's Python scripting access to import media into the Media Pool and create timeline render jobs, which is no longer available to them in later Free releases. [Download Resolve 21.0.4 from Blackmagic Design](https://www.blackmagicdesign.com/support/family/davinci-resolve-and-fusion#:~:text=05%20Aug%202026-,DaVinci%20Resolve%2021.0.4%20Update,-This%20software%20update).
+
 A lightweight Python automation toolkit for **DaVinci Resolve (Free Version) on Linux** (tested on Fedora). It provides one-click importing and transcoding of common media into your active Media Pool, plus timeline export to popular delivery formats using FFmpeg and native Zenity GTK dialogs.
 
 ---
